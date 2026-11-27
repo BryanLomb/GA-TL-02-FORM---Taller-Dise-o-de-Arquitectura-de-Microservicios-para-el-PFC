@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" compressed="false">
+  <diagram id="C4-N2" name="C4 N2">
+    <mxGraphModel dx="1440" dy="940" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1440" pageHeight="940" background="#ffffff" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="RTV · C4 nivel 2" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=34;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="56" y="29" width="1328" height="47" as="geometry"/>
+        </mxCell>
+        <mxCell id="sub" value="Contenedores · Taller GA-TL-02" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=17;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="56" y="78" width="1328" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="staff" value="&lt;b&gt;Personal de atención&lt;/b&gt;&lt;br&gt;Gestiona turnos y pagos" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="321" y="126" width="282" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="inspector" value="&lt;b&gt;Inspector técnico&lt;/b&gt;&lt;br&gt;Inicia y registra inspecciones" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="653" y="126" width="282" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="system" value="" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;rounded=0;strokeWidth=1.2;dashed=1;dashPattern=7 5;connectable=0;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="56" y="229" width="1328" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="system-label" value="Sistema de Revisión Técnica Vehicular" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="76" y="238" width="620" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="web" value="&lt;b&gt;Cliente web&lt;/b&gt;&lt;br&gt;Interfaz del personal y del inspector" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="493" y="290" width="310" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="mobile" value="&lt;b&gt;Cliente móvil&lt;/b&gt;&lt;br&gt;Alcance por confirmar" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=16;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="891" y="290" width="250" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="gateway" value="&lt;b&gt;API Gateway&lt;/b&gt;&lt;br&gt;Enrutamiento · autenticación&lt;br&gt;Limitación de solicitudes" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=17;rounded=0;spacing=5;strokeWidth=2;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="528" y="427" width="330" height="89" as="geometry"/>
+        </mxCell>
+        <mxCell id="turns" value="&lt;b&gt;MS-01 · Turnos y Pagos&lt;/b&gt;&lt;br&gt;Gestiona turnos, pagos y autorización" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="95" y="617" width="271" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="turns-db" value="&lt;b&gt;rtv_turnos_pagos&lt;/b&gt;&lt;br&gt;PostgreSQL · E1" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=12;spacingTop=8;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="115" y="752" width="231" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="inspection" value="&lt;b&gt;MS-02 · Inspecciones&lt;/b&gt;&lt;br&gt;Controla el inicio de inspección" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="407" y="617" width="271" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="inspection-db" value="&lt;b&gt;rtv_inspecciones&lt;/b&gt;&lt;br&gt;PostgreSQL · E1" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=12;spacingTop=8;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="427" y="752" width="231" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="identity" value="&lt;b&gt;MS-03 · Identidad y Acceso&lt;/b&gt;&lt;br&gt;Gestiona acceso, roles y permisos" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="719" y="617" width="271" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="identity-db" value="&lt;b&gt;rtv_identidad_acceso&lt;/b&gt;&lt;br&gt;Base privada propuesta" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=12;spacingTop=8;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="739" y="752" width="231" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="vehicle" value="&lt;b&gt;MS-04 · Ficha y Clasificación&lt;br&gt;Vehicular&lt;/b&gt;&lt;br&gt;Mantiene la ficha y su categoría" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;rounded=0;spacing=5;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1031" y="617" width="271" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="vehicle-db" value="&lt;b&gt;rtv_ficha_vehicular&lt;/b&gt;&lt;br&gt;Base privada propuesta" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=12;spacingTop=8;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="1051" y="752" width="231" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Lectura&lt;/b&gt; · Flechas punteadas: canal pendiente de acordar. Las bases de datos son privadas de cada servicio." style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=15;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="56" y="864" width="1328" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="notes" value="Base del diseño: catálogo de RTV, propuesta de Gateway y contrato de autorización de E1." style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
+          <mxGeometry x="56" y="892" width="1328" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="turns-store" value="SQL/JDBC · E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="turns" target="turns-db">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <mxPoint x="0" y="12" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inspection-store" value="SQL/JDBC · E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="inspection" target="inspection-db">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <mxPoint x="0" y="12" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="identity-store" value="Persistencia privada" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="identity" target="identity-db">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <mxPoint x="0" y="12" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vehicle-store" value="Persistencia privada" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vehicle" target="vehicle-db">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <mxPoint x="0" y="12" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="staff-web" value="" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.55;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.22;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="staff" target="web">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="476.1" y="211"/>
+              <mxPoint x="561.2" y="211"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inspector-web" value="" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.42;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.78;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="inspector" target="web">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="771.44" y="211"/>
+              <mxPoint x="734.8" y="211"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="web-gw" value="REST/HTTPS síncrono · propuesto" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.65;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.504545;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="web" target="gateway">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <mxPoint x="0" y="0" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="mobile-gw" value="REST/HTTPS síncrono · propuesto" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.36;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="mobile" target="gateway">
+          <mxGeometry x="0.13" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1016" y="459.04"/>
+            </Array>
+            <mxPoint x="0" y="-10" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gw-ins" value="Inicio · REST síncrono propuesto" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=0.28;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="inspection">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620.4" y="558"/>
+              <mxPoint x="542.5" y="558"/>
+            </Array>
+            <mxPoint x="0" y="-11" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gw-turn" value="Gestión de turnos y pagos" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0.15;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="turns">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="577.5" y="541"/>
+              <mxPoint x="230.5" y="541"/>
+            </Array>
+            <mxPoint x="0" y="-10" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gw-identity" value="Acceso del personal" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0.65;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="identity">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="742.5" y="559"/>
+              <mxPoint x="854.5" y="559"/>
+            </Array>
+            <mxPoint x="0" y="-10" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="gw-vehicle" value="Operaciones de ficha" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0.86;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="vehicle">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="811.8" y="539"/>
+              <mxPoint x="1166.5" y="539"/>
+            </Array>
+            <mxPoint x="0" y="-10" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="authorization" value="Solicita autorización · REST síncrono de E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=0;exitY=0.65;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="inspection" target="turns">
+          <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="395" y="666.4"/>
+              <mxPoint x="395" y="716"/>
+              <mxPoint x="379" y="716"/>
+              <mxPoint x="379" y="666.4"/>
+            </Array>
+            <mxPoint x="0" y="-9" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
