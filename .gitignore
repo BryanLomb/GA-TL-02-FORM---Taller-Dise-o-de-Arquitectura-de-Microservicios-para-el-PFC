@@ -1,0 +1,24 @@
+# Archivos auxiliares de LaTeX (se generan al compilar; el informe.pdf sí se sube)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Copias de seguridad de editores y sistema
+*.bak
+*~
+.DS_Store
+Thumbs.db

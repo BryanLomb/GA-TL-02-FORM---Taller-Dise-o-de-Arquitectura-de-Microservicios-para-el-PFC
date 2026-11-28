@@ -5,12 +5,13 @@
 \usepackage[spanish]{babel}
 \addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 \usepackage{lmodern}
-\usepackage[margin=2.2cm]{geometry}
+\usepackage[top=1.8cm,bottom=1.8cm,left=2.2cm,right=2.2cm]{geometry}
 \usepackage{booktabs,longtable,array}
 \usepackage[hidelinks]{hyperref}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.6em}
+\emergencystretch=3em
 
 \title{GA-TL-02 --- FORM\\Taller de diseño de la arquitectura de microservicios del PFC}
 \author{%
@@ -34,13 +35,13 @@
 
 El Proyecto Fin de Curso elegido por el equipo es el Sistema de Revisión Técnica Vehicular (RTV) del Centro de Revisión Técnica Vehicular del Municipio de Valencia. Este documento reúne la tabla de servicios del diseño y la tabla de retroalimentación de la revisión docente.
 
-La Tabla~\ref{tab:servicios} procede de los archivos \path{01-dominio-servicios.md} y \path{02-propiedad-datos.md} de la carpeta \path{docs/arquitectura/} del repositorio. Los cuatro servicios son una propuesta del equipo y todavía no tienen la aprobación de los cuatro integrantes. Los endpoints proceden de la matriz de comunicaciones \path{04-comunicaciones-contratos.md}, en esa misma carpeta, donde cada canal tiene un identificador COM-XX. Solo COM-01 y COM-02 proceden del contrato de E1; las demás rutas son propuestas del taller. Los diagramas C4 de contenedores y componentes están en \path{docs/diagramas/} y los bosquejos a mano en \path{evidencias/ga-tl-02/}.
+La Tabla~\ref{tab:servicios} procede de \path{01-dominio-servicios.md} y \path{02-propiedad-datos.md}, en \path{docs/arquitectura/}. El equipo confirmó los cuatro servicios y sus bases privadas. Los endpoints proceden de \path{04-comunicaciones-contratos.md}, donde cada canal tiene un identificador COM-XX. Solo COM-01 y COM-02 proceden del contrato de E1; las demás rutas son propuestas del taller. Los diagramas C4 están en \path{docs/diagramas/} y los bosquejos a mano en \path{evidencias/ga-tl-02/}.
 
 \section{Tabla de servicios}
 
 \begingroup
 \footnotesize
-\renewcommand{\arraystretch}{1.15}
+\renewcommand{\arraystretch}{1.05}
 \begin{longtable}{@{}p{1.9cm}p{3.3cm}p{4.1cm}p{3.1cm}p{2.1cm}@{}}
 \caption{Servicios propuestos, datos que poseen y requisito que atienden.}\label{tab:servicios}\\
 \toprule
@@ -59,7 +60,7 @@ Turnos, habilitación, pago, autorizaciones y claves de idempotencia. Base priva
 COM-02 \texttt{POST /turnos/\{turnoId\}/\allowbreak autorizaciones-\allowbreak inspeccion} (E1 v0.2).\newline
 COM-12 \texttt{POST /turnos}, \texttt{GET /turnos/\{turnoId\}}.\newline
 COM-13 \texttt{POST /turnos/\{turnoId\}/\allowbreak confirmaciones-\allowbreak pago}. &
-Sin RF numerado en RF-01 a RF-10. Pendiente de acordar.\\
+Sin RF numerado. Autorizar el inicio de una inspección.\\
 \addlinespace
 \textbf{MS-02} Inspecciones &
 Controlar el inicio y el estado de la inspección: solicitar la autorización y registrar el inicio. &
@@ -67,7 +68,7 @@ Inspección, estado, registro de inicio y claves de idempotencia. Base privada \
 COM-01 \texttt{POST /inspecciones} (E1 v0.2).\newline
 COM-14 \texttt{POST /inspecciones/\allowbreak\{inspeccionId\}/\allowbreak asignaciones-\allowbreak linea}.\newline
 COM-09 \texttt{GET /vehiculos/\allowbreak\{vehiculoId\}/\allowbreak ultima-revision}. &
-Sin RF numerado en RF-01 a RF-10. Pendiente de acordar.\\
+Sin RF numerado. Registrar el inicio de una inspección autorizada.\\
 \addlinespace
 \textbf{MS-03} Identidad y Acceso &
 Autenticar al personal, gestionar sesiones, roles y permisos, y ofrecer la consulta unificada de auditoría administrativa. &
@@ -81,14 +82,14 @@ RF-01, RF-02, RF-03 y RF-04.\\
 \textbf{MS-04} Ficha y Clasificación Vehicular &
 Registrar y consultar la ficha del vehículo, validar sus datos, detectar el cambio de uso y calcular la categoría. &
 Fichas e historial, placa y período, tipo, uso, ejes, peso, catálogos, categoría con su fecha, indicación de impronta y auditoría de la ficha. Base privada \texttt{rtv\_ficha\_vehicular} (propuesta). &
-COM-06 \texttt{POST} y \texttt{PATCH /fichas}, \texttt{GET /fichas/\allowbreak\{fichaId\}}.\newline
+COM-06 \texttt{POST /fichas}; \texttt{PATCH} y \texttt{GET /fichas/\allowbreak\{fichaId\}}.\newline
 COM-07 y COM-08 \texttt{GET /fichas/\allowbreak\{fichaId\}/\allowbreak clasificacion}.\newline
 COM-11 \texttt{GET /auditoria}. &
 RF-05 a RF-10. Colabora en RF-04.\\
 \end{longtable}
 \endgroup
 
-Los diez requisitos RF-01 a RF-10 tienen servicio responsable. MS-01 y MS-02 aún no atienden ningún requisito numerado, así que el equipo debe acordar si se amplían los requisitos o se justifica de otro modo su existencia antes de cerrar esta tabla.
+Los diez requisitos RF-01 a RF-10 tienen servicio responsable. MS-01 y MS-02 no atienden un RF numerado. Según \path{01-dominio-servicios.md}, se justifican con las necesidades de la tabla, que proceden del objetivo del PFC, el contrato de autorización y las pruebas de E1. El equipo no añadió requisitos oficiales.
 
 \section{Retroalimentación de la revisión de diseño}
 
@@ -110,6 +111,6 @@ Pendiente de revisión docente & Pendiente & Pendiente\\
 
 \section{Declaración de uso de inteligencia artificial}
 
-Eduardo Reinoso utilizó Claude (Anthropic, modelo Sonnet 5.5) para estructurar este documento, redactar el borrador de \path{05-consistencia-resiliencia.md} y ajustar la redacción. Los datos de la Tabla~\ref{tab:servicios} se contrastaron con los archivos 01, 02 y 04 del repositorio antes de incluirlos.
+Eduardo Reinoso utilizó Claude (Anthropic, Sonnet 5.5) para estructurar este documento, redactar el borrador de \path{05-consistencia-resiliencia.md} y ajustar la redacción. Los datos de la Tabla~\ref{tab:servicios} se contrastaron con los archivos 01, 02 y 04 antes de incluirlos.
 
 \end{document}

@@ -22,7 +22,7 @@ Taller grupal de diseño de la arquitectura de microservicios del Proyecto Fin d
 
 Sistema de Revisión Técnica Vehicular (RTV) del Centro de Revisión Técnica Vehicular del Municipio de Valencia, tomado de la entrega E1 de [NixonPiguave/TA-PFC-E1-PFC-Entrega-1](https://github.com/NixonPiguave/TA-PFC-E1-PFC-Entrega-1).
 
-La autorización de inicio de inspección entre Inspecciones y Turnos y Pagos es el único flujo implementado y probado en E1. El resto del diseño, incluidos el Gateway y los servicios MS-03 y MS-04, es propuesta del equipo y está marcado como tal en cada documento. Los requisitos RF y RNF y el contrato de E1 están en [`PFC-RTV-referencia-completa-para-GLMR.md`](PFC-RTV-referencia-completa-para-GLMR.md).
+La autorización de inicio de inspección entre Inspecciones y Turnos y Pagos es el único flujo implementado y probado en E1. El equipo confirmó para el taller la descomposición en cuatro servicios y sus bases privadas; el API Gateway, los servicios MS-03 y MS-04 y los demás canales son diseño propuesto, sin implementación, y así se marcan en cada documento. Los requisitos RF y RNF y el contrato de E1 están en [`PFC-RTV-referencia-completa-para-GLMR.md`](PFC-RTV-referencia-completa-para-GLMR.md).
 
 ## Estructura
 
@@ -34,7 +34,7 @@ La autorización de inicio de inspección entre Inspecciones y Turnos y Pagos es
 │   ├── arquitectura/    01 dominio y servicios, 02 propiedad de datos, 03 API Gateway,
 │   │                    04 comunicaciones y contratos, 05 consistencia y resiliencia
 │   ├── diagramas/       C4 nivel 2 y nivel 3 (.drawio editable y .pdf)
-│   ├── ga-tl-02/        informe en LaTeX (informe.tex)
+│   ├── ga-tl-02/        informe en LaTeX (informe.tex) y su PDF compilado (informe.pdf)
 │   └── adr/             registros de decisiones de arquitectura
 └── evidencias/
     └── ga-tl-02/        bosquejos iniciales dibujados a mano
@@ -52,7 +52,7 @@ pdflatex informe
 pdflatex informe
 ```
 
-La segunda pasada resuelve las referencias a tablas. El resultado es `docs/ga-tl-02/informe.pdf`.
+La segunda pasada resuelve las referencias a tablas. El resultado es `docs/ga-tl-02/informe.pdf`, que se incluye en el repositorio. Los archivos auxiliares de la compilación (`.aux`, `.log`, `.out`) están en `.gitignore`.
 
 - **Dependencias:** paquetes `babel` (español), `fontenc`, `inputenc`, `lmodern`, `geometry`, `booktabs`, `longtable`, `array` e `hyperref`. En TeX Live hacen falta `texlive-lang-spanish` y `texlive-latex-extra`.
 
