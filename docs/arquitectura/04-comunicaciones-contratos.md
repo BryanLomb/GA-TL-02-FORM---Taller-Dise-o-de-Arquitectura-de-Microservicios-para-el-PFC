@@ -73,7 +73,13 @@ Los contratos propuestos de escritura distintos de COM-01 no heredan automática
 | COM-10 y COM-11 | Si una fuente falla, la consulta puede devolver `200` con `completo: false` y su identificador en `fuentesNoDisponibles`. Los registros retornados conservan su origen. Un conjunto vacío de una fuente disponible no equivale a una fuente caída. | FR-12; CO-06. |
 | Entrada al Gateway | Exceso de cuota: `429` con `Retry-After`. Destino indisponible: `503`; espera agotada: `504`. Conserva los errores de negocio del destino. | FR-07 a FR-09; documento `03`. |
 
-La espera de COM-02 es de **3 segundos**, conforme a RNF-02. El presupuesto del Gateway para COM-01 debe superar la suma de la verificación de permisos, esos 3 segundos y el procesamiento local. Los tiempos de COM-05 y COM-07 a COM-11 y el margen del Gateway requieren validación mediante pruebas. El p95 local de E1 no mide el recorrido con Gateway.
+La espera de COM-02 es de **3 segundos**, conforme a RNF-02. Para COM-01 se usa el siguiente presupuesto:
+
+`espera del Gateway > verificación de permisos previa en MS-02 + 3 s de COM-02 + procesamiento local + margen`.
+
+Los 3 segundos de COM-02 abarcan la respuesta completa de MS-01, incluida cualquier verificación de permisos que realice durante esa llamada. No se cuentan esas verificaciones por segunda vez. Las llamadas internas respetan el presupuesto restante; agotar una espera no implica cancelar una transacción ya iniciada en el receptor. Por eso un resultado incierto se recupera con la misma clave.
+
+Los tiempos de COM-05 y COM-07 a COM-11 y el margen del Gateway requieren validación mediante pruebas. El p95 local de E1 no mide el recorrido con Gateway.
 
 No se proponen reintentos automáticos de escrituras en el Gateway. Ante una respuesta incierta de COM-01, el cliente conserva y reutiliza la misma clave; MS-02 propaga esa clave en COM-02. El registro local puede quedar temporalmente como autorización sin inspección y completarse mediante reintento. Esto no constituye una transacción entre bases.
 
@@ -81,7 +87,7 @@ Si el cliente pierde la clave, E1 no recupera automáticamente una clave anterio
 
 ## 4. Etiquetas para C4
 
-Para cada relación se propone la etiqueta `COM-XX · propósito · REST/JSON · síncrona`. Los recorridos externos se dibujan en dos tramos: cliente → Gateway y Gateway → servicio. Las consultas internas van directamente al servicio propietario.
+Los diagramas [C4 nivel 2](../diagramas/c4-n2-microservicios.drawio) y [C4 nivel 3](../diagramas/c4-n3-microservicios.drawio) ya identifican los canales COM-01 a COM-14. Para cada relación se utiliza la etiqueta `COM-XX · propósito · REST/JSON · síncrona`. Los recorridos externos se dibujan en dos tramos: cliente → Gateway y Gateway → servicio. Las consultas internas van directamente al servicio propietario.
 
 - COM-01: iniciar inspección; COM-02: autorizar inicio.
 - COM-03: abrir sesión; COM-04: asignar roles; COM-05: verificar permisos vigentes.
@@ -89,7 +95,7 @@ Para cada relación se propone la etiqueta `COM-XX · propósito · REST/JSON ·
 - COM-09: consultar revisión anterior; COM-10: consultar auditoría unificada; COM-11: consultar auditoría de ficha.
 - COM-12: gestionar turno; COM-13: confirmar pago; COM-14: asignar línea.
 
-La autorización de inicio COM-02 permanece interna.
+La autorización de inicio COM-02 permanece interna. COM-05 corresponde a las llamadas de MS-01, MS-02 y MS-04 a MS-03; MS-03 verifica localmente el acceso a sus propias operaciones. Esta lectura coincide con FR-10 y CO-05 de [05-consistencia-resiliencia.md](05-consistencia-resiliencia.md).
 
 ## 5. Seguridad y observabilidad
 
