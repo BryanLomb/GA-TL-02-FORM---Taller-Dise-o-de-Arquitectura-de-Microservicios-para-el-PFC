@@ -1,8 +1,8 @@
 # API Gateway del sistema RTV
 
-**Responsable:** GARCIA BAZURTO KEVIN LEONEL  
-**Actividad:** GA-TL-02  
-**Estado:** diseño preliminar para revisión del equipo
+**Responsable:** GARCIA BAZURTO KEVIN LEONEL
+**Actividad:** GA-TL-02
+**Estado:** propuesta de diseño.
 
 ## 1. Ubicación y funciones
 
@@ -36,23 +36,38 @@ Turnos y Pagos
 
 Inspecciones solicita la autorización por la red interna de servicios. Turnos y Pagos comprueba el turno, su habilitación y el pago, y devuelve la autorización. Inspecciones guarda el inicio en su base y responde al cliente a través del Gateway.
 
-Las rutas de acceso, ficha vehicular y demás operaciones se incorporarán cuando el equipo apruebe el catálogo de servicios. Cada ruta registrará método, destino, permiso requerido y RF atendido.
+El catálogo de rutas externas es el siguiente. Solo el contrato de inicio procede de E1; su exposición mediante Gateway y las demás rutas son propuestas del taller.
+
+| Método y ruta externa | Destino | Control requerido | Trazabilidad |
+|---|---|---|---|
+| `POST /sesiones` | MS-03 Identidad y Acceso | Pública; validación de credenciales y cuota de intentos | RF-01; COM-03 |
+| `PUT /usuarios/{usuarioId}/roles` | MS-03 | Administrar asignaciones de roles | RF-02 y RF-03; COM-04 |
+| `GET /auditoria` | MS-03 | Consultar auditoría con filtros | RF-04; COM-10 |
+| `POST /fichas` | MS-04 Ficha y Clasificación Vehicular | Registrar ficha | RF-05 a RF-10; COM-06 |
+| `PATCH /fichas/{fichaId}` | MS-04 | Editar ficha | RF-05 a RF-10; COM-06 |
+| `GET /fichas/{fichaId}` | MS-04 | Consultar ficha | RF-03 y RF-05 a RF-10; COM-06 |
+| `POST /turnos`; `GET /turnos/{turnoId}` | MS-01 Turnos y Pagos | Registrar o consultar turno, respectivamente | Flujo administrativo del PFC; RNF-03 y RNF-05; COM-12 |
+| `POST /turnos/{turnoId}/confirmaciones-pago` | MS-01 | Confirmar pago del trámite | RNF-03 y RF-03; COM-13 |
+| `POST /inspecciones` | MS-02 Inspecciones | Iniciar inspección | RNF-01 a RNF-04; COM-01 |
+| `POST /inspecciones/{inspeccionId}/asignaciones-linea` | MS-02 | Asignar línea compatible | RF-06 y RF-10; COM-14 |
+
+Las consultas internas de autorización, clasificación, revisión anterior y auditoría de origen no se publican mediante reglas generales del Gateway. Se rechazan rutas sin configuración y métodos no permitidos. Los datos y respuestas de cada operación figuran en [04-comunicaciones-contratos.md](04-comunicaciones-contratos.md).
 
 ## 3. Autenticación y permisos
 
-La aplicación RTV de origen utiliza JWT. Se propone mantener ese mecanismo para el acceso de usuarios y validar en el Gateway la firma, el algoritmo permitido, el emisor, la audiencia y la expiración del token. El equipo definirá el responsable de emitirlo, la distribución de claves y el tratamiento de sesiones revocadas.
+La aplicación RTV de origen utiliza JWT. Se propone mantener ese mecanismo para el acceso de usuarios y validar en el Gateway la firma, el algoritmo permitido, el emisor, la audiencia y la expiración del token. MS-03 será el emisor propuesto y mantendrá el estado de sesión. El Gateway validará la firma con la clave pública del emisor; la rotación y distribución de claves se configurarán antes del despliegue. No se transportan permisos como única prueba de autorización.
 
 El inicio de sesión tendrá una ruta pública para presentar las credenciales. Las operaciones protegidas exigirán un token válido. Una credencial ausente o inválida producirá `401 Unauthorized`, con la cabecera `WWW-Authenticate` correspondiente.
 
-El servicio destino comprobará los permisos sobre la operación y el recurso. Cuando el usuario carezca del permiso, responderá `403 Forbidden`. Este control atiende RF-01, RF-02 y RF-03 sobre acceso, roles y restricciones de funciones.
+El servicio destino consultará a MS-03 en cada solicitud protegida mediante `POST /autorizaciones/verificar` (COM-05), indicando una identidad verificable, la operación y el recurso. MS-03 resolverá con sus datos actuales la validez de la sesión y los permisos. Si no está disponible, el destino responderá `503` sin ejecutar la operación. Esta propuesta conserva RF-02: una revocación confirmada se aplica desde la siguiente solicitud; un token aún no vencido no permite eludirla. Cuando el usuario carezca del permiso, responderá `403 Forbidden`. Este control atiende RF-01, RF-02 y RF-03 sobre acceso, roles y restricciones de funciones.
 
-El Gateway eliminará las cabeceras de identidad interna enviadas por el cliente y transmitirá contexto verificable al destino. Para la autorización entre Inspecciones y Turnos y Pagos se conserva la credencial de servicio del contrato E1, vinculada a RNF-06.
+El Gateway eliminará las cabeceras de identidad interna enviadas por el cliente. El destino verificará el token original y autenticará al llamante; no confiará en un identificador de usuario escrito libremente en una cabecera. Las llamadas directas a servicios también estarán sujetas al control de acceso (RF-03). Para la autorización entre Inspecciones y Turnos y Pagos se conserva la credencial de servicio del contrato E1, vinculada a RNF-06.
 
 ## 4. Limitación de solicitudes
 
 Se propone una cuota por usuario autenticado y grupo de operaciones. El inicio de sesión tendrá límites por origen y cuenta para controlar intentos repetidos.
 
-El limitador podrá utilizar token bucket, con tasa de reposición y capacidad de ráfaga configurables. Los valores se fijarán con pruebas de carga y el volumen de uso esperado. Al agotar la cuota, el Gateway responderá `429 Too Many Requests` con `Retry-After`.
+Se propone token bucket, con tasa de reposición y capacidad de ráfaga configurables. Si hay varias instancias del Gateway, compartirán los contadores o tendrán un reparto explícito del presupuesto para no multiplicar la cuota por instancia. Las IP de origen solo se obtendrán de proxies configurados como confiables. Los valores se fijarán con pruebas de carga y el volumen de uso esperado. Al agotar la cuota, el Gateway responderá `429 Too Many Requests` con `Retry-After`.
 
 Esta política debe evaluarse junto con RNF-01. El criterio publicado de p95 ≤ 100 ms corresponde al inicio de inspección en el entorno local de E1. Se medirá nuevamente el recorrido con Gateway para conocer su costo adicional y comprobar el criterio en el entorno acordado.
 
@@ -65,20 +80,13 @@ Esta política debe evaluarse junto con RNF-01. El criterio publicado de p95 ≤
 | `Idempotency-Key` | Conservar la clave durante el recorrido y los reintentos de la operación |
 | `X-Request-Id` | Generar un identificador de correlación y propagarlo a los servicios y a la respuesta |
 
-La llamada de Inspecciones a Turnos y Pagos tiene una espera inicial de 3 segundos, definida por RNF-02. La espera del Gateway deberá permitir que Inspecciones complete su procesamiento o devuelva el error previsto por el contrato. El valor se acordará con Eduardo.
+La llamada de Inspecciones a Turnos y Pagos tiene una espera inicial de 3 segundos, definida por RNF-02. La espera del Gateway deberá permitir que Inspecciones complete su procesamiento o devuelva el error previsto por el contrato. El presupuesto debe incluir la consulta de permisos a MS-03, los 3 segundos de autorización y el procesamiento local. Los valores restantes se validarán con Eduardo; no se atribuye una medición a este recorrido nuevo.
 
 Si el servicio destino está temporalmente indisponible, el Gateway responderá `503 Service Unavailable`. Si vence su espera, responderá `504 Gateway Timeout`. Los errores de negocio conservarán los códigos acordados en el contrato.
 
-Una respuesta perdida puede ocurrir después de guardar la autorización. El cliente repetirá la misma operación con la misma clave de idempotencia. El Gateway la conservará y los servicios recuperarán sus registros según el contrato, protegiendo la integridad y el control de duplicados de RNF-03 y RNF-04.
+El Gateway no repetirá automáticamente escrituras. Una respuesta perdida puede ocurrir después de guardar la autorización. El cliente repetirá la misma operación con la misma clave de idempotencia. El Gateway la conservará y los servicios recuperarán sus registros según el contrato, protegiendo la integridad y el control de duplicados de RNF-03 y RNF-04.
 
 Se registrarán ruta, destino, duración, código de respuesta e identificador de correlación. Los registros omitirán contraseñas y tokens.
-
-## 6. Pendientes de integración
-
-- Completar las rutas y su relación con RF a partir del catálogo aprobado por el equipo.
-- Definir el responsable de identidad y las políticas de vigencia de tokens y permisos.
-- Acordar cuotas y tiempos de espera con Eduardo.
-- Incorporar las rutas a la matriz de comunicaciones y entregar las etiquetas del Gateway a Carlos.
 
 ## Referencias
 
