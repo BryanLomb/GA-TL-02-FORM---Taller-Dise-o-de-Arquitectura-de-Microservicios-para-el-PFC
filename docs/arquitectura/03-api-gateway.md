@@ -80,7 +80,7 @@ Esta política debe evaluarse junto con RNF-01. El criterio publicado de p95 ≤
 | `Idempotency-Key` | Conservar la clave durante el recorrido y los reintentos de la operación |
 | `X-Request-Id` | Generar un identificador de correlación y propagarlo a los servicios y a la respuesta |
 
-La llamada de Inspecciones a Turnos y Pagos tiene una espera inicial de 3 segundos, definida por RNF-02. La espera del Gateway deberá permitir que Inspecciones complete su procesamiento o devuelva el error previsto por el contrato. El presupuesto debe incluir la consulta de permisos a MS-03, los 3 segundos de autorización y el procesamiento local. Los valores restantes se validarán con Eduardo; no se atribuye una medición a este recorrido nuevo.
+La llamada de Inspecciones a Turnos y Pagos tiene una espera inicial de 3 segundos, definida por RNF-02. La espera del Gateway deberá permitir que Inspecciones complete su procesamiento o devuelva el error previsto por el contrato. La espera del Gateway debe ser mayor que la verificación de permisos previa en MS-02, los 3 segundos completos de COM-02, el procesamiento local y un margen. Las verificaciones que MS-01 realice dentro de COM-02 consumen esos mismos 3 segundos; no se suman otra vez al presupuesto. Cada llamada interna debe respetar el tiempo restante del recorrido. Los valores adicionales requieren medición. Agotar una espera no garantiza que el receptor haya detenido su procesamiento: se conserva la misma clave para resolver un resultado incierto.
 
 Si el servicio destino está temporalmente indisponible, el Gateway responderá `503 Service Unavailable`. Si vence su espera, responderá `504 Gateway Timeout`. Los errores de negocio conservarán los códigos acordados en el contrato.
 
