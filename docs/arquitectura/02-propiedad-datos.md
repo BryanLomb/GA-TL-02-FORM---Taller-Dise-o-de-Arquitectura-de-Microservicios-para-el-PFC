@@ -1,6 +1,6 @@
 # Propiedad de datos del sistema RTV
 
-**Estado:** propuesta para revisión del equipo.
+**Estado:** propiedad de los datos y límites entre servicios confirmados para el taller.
 
 **Base de trabajo:** [Catálogo de dominio y servicios](01-dominio-servicios.md) y [referencia del PFC RTV](../../PFC-RTV-referencia-completa-para-GLMR.md), secciones 5, 9 a 11, 17 y 19.
 
@@ -20,13 +20,17 @@ Cada servicio es la **fuente oficial** de los datos que crea y modifica. Tiene u
 | Consumidor | Fuente oficial | Información necesaria y uso |
 |---|---|---|
 | Inspecciones | Turnos y Pagos | Envía el identificador del turno y recibe la autorización correspondiente. Conserva las referencias al turno y a la autorización; no necesita consultar ni replicar el estado de pago para decidir el inicio. |
-| Turnos y Pagos | Ficha y Clasificación Vehicular | Consulta la categoría válida para aplicar la tarifa. Puede conservar la categoría y la fecha o referencia de clasificación usadas al calcular el importe, como dato histórico del trámite. |
-| Inspecciones | Ficha y Clasificación Vehicular | Consulta la categoría válida para asignar una línea. Conserva una referencia a la versión de ficha usada en la revisión para futuras comparaciones; también puede conservar la categoría empleada como dato histórico. |
-| Ficha y Clasificación Vehicular | Inspecciones | Identifica la última revisión pertinente y la ficha o versión utilizada en ella. Compara el uso de esa versión con el actual para detectar si corresponde impronta. La inspección acredita cuál fue la revisión; Ficha Vehicular es dueña del valor de uso. |
+| Turnos y Pagos | Ficha y Clasificación Vehicular | Consulta la categoría vigente a partir del `fichaId` asociado al trámite. Conserva la categoría y el `versionFichaId` utilizados al aplicar la tarifa como datos históricos del trámite. |
+| Inspecciones | Ficha y Clasificación Vehicular | Consulta la categoría vigente antes de asignar la línea y conserva el `fichaId` y el `versionFichaId` que utilizó. |
+| Ficha y Clasificación Vehicular | Inspecciones | Busca por `vehiculoId` la última revisión pertinente y recibe el identificador de la inspección junto con el `fichaId` y el `versionFichaId` que se usaron. Consulta su propio historial y compara ese uso con el actual para determinar si corresponde impronta. |
 | Servicios que protegen operaciones | Identidad y Acceso | Usan la identidad del actor y los permisos vigentes. Un dato de sesión o una copia desactualizada no debe permitir operar con permisos ya revocados. |
 | Identidad y Acceso, para la consulta de auditoría | Servicios que registran las acciones | Obtiene los registros de los servicios de origen y aplica los filtros de consulta. Ficha Vehicular conserva los registros de alta de placa y cambios de uso; Identidad conserva los cambios de roles. |
 
-Las copias permitidas son **referencias o instantáneas históricas**, como la categoría con la que se calculó una tarifa. No reemplazan la categoría vigente para una decisión nueva ni otorgan al consumidor el derecho de modificar el dato de origen. No se propone replicar credenciales, permisos como fuente oficial, ni estados de pago. El equipo aún debe acordar cómo identificar la versión de ficha usada en la última revisión y cómo consultar esos datos al asignar una línea.
+Las copias permitidas son **referencias o instantáneas históricas**, como la categoría con la que se calculó una tarifa. No reemplazan la categoría vigente para una decisión nueva ni otorgan al consumidor el derecho de modificar el dato de origen. No se propone replicar credenciales, permisos como fuente oficial, ni estados de pago.
+
+### Identificación y versiones de ficha
+
+Ficha y Clasificación Vehicular administra `vehiculoId` como identidad del vehículo, `fichaId` como identidad de una ficha y `versionFichaId` como identidad de una versión de esa ficha. La consulta de clasificación devuelve ambos identificadores de ficha junto con la categoría vigente y su fecha. Inspecciones conserva `vehiculoId` para localizar el historial de revisiones y guarda la pareja `fichaId` y `versionFichaId` al asignar la línea. Una edición posterior de la ficha conserva la versión histórica y no modifica la referencia usada en la revisión anterior. Si no se puede consultar esa revisión o su versión, la necesidad de impronta queda pendiente de determinar.
 
 ## Auditoría sin un servicio adicional
 
@@ -36,4 +40,4 @@ Las copias permitidas son **referencias o instantáneas históricas**, como la c
 
 ## Límites del diseño
 
-Las reglas de integridad descritas se aplican donde vive el dato. En el flujo de E1, puede quedar una autorización registrada en Turnos y Pagos sin un inicio confirmado en Inspecciones; no se presupone una transacción única entre bases. La recuperación, los contratos de consulta y el manejo de dependencias no disponibles se acuerdan con Kevin y Eduardo. Las reglas de vigencia, cancelación y reinspección no se deducen de las restricciones del prototipo.
+Las reglas de integridad descritas se aplican donde vive el dato. En E1 puede quedar una autorización guardada en Turnos y Pagos sin un inicio confirmado en Inspecciones. El reintento con el mismo turno y la misma clave permite recuperar la autorización y completar el registro local. Si el cliente pierde la clave y envía otra para un turno ya autorizado, E1 rechaza la solicitud; el taller conserva ese contrato y no incorpora recuperación por turno. Las reglas de vigencia, cancelación y reinspección no se deducen de las restricciones del prototipo.

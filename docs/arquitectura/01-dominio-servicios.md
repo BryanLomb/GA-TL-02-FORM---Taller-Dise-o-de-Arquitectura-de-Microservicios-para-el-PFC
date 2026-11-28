@@ -1,6 +1,6 @@
 # Dominio y microservicios del sistema RTV
 
-**Estado:** propuesta para revisión del equipo.
+**Estado:** descomposición y responsabilidades confirmadas por el equipo para el taller.
 
 **Base de trabajo:** [Referencia del PFC RTV](../../PFC-RTV-referencia-completa-para-GLMR.md), secciones 2 a 10, 14 y 17. Allí se enlazan los requisitos, diagramas y evidencias de E1.
 
@@ -22,14 +22,14 @@ El prototipo de E1 demuestra la autorización y el registro del inicio entre dos
 
 | Alternativa | Límites | Ventajas | Costos y límites |
 |---|---|---|---|
-| **A. Cuatro servicios — recomendada** | Turnos y Pagos; Inspecciones; Identidad y Acceso; Ficha y Clasificación Vehicular. Los registros de auditoría se conservan donde se realiza cada acción y se consultan desde Identidad y Acceso. | Conserva el flujo crítico de E1. Permite guardar el cambio de negocio y su registro de auditoría en la misma transacción local. No añade otro despliegue para auditoría. | La consulta unificada debe combinar filtros y resultados de distintas fuentes e informar si alguna no puede responder. |
+| **A. Cuatro servicios — elegida** | Turnos y Pagos; Inspecciones; Identidad y Acceso; Ficha y Clasificación Vehicular. Los registros de auditoría se conservan donde se realiza cada acción y se consultan desde Identidad y Acceso. | Conserva el flujo crítico de E1. Permite guardar el cambio de negocio y su registro de auditoría en la misma transacción local. No añade otro despliegue para auditoría. | La consulta unificada debe combinar filtros y resultados de distintas fuentes e informar si alguna no puede responder. |
 | **B. Cinco servicios — alternativa** | Los cuatro anteriores más un servicio independiente de Auditoría, con base propia para la consulta centralizada. | Separa las consultas de auditoría de la operación diaria y facilita filtrar y ordenar en un único almacén. | Añade un despliegue y exige asegurar la entrega de registros, manejar duplicados y definir cuánto retraso se acepta antes de que una acción sea visible. |
 
-Se propone **A** porque ya cubre la necesidad de auditar cambios de roles y de fichas sin añadir otro servicio. Turnos, pagos y autorización se mantienen juntos para que la elegibilidad se resuelva sobre datos propios. La inspección se mantiene separada porque su estado técnico no es el estado administrativo del turno. Ficha y clasificación permanecen juntas: los cambios de tipo, ejes y peso afectan directamente el cálculo de la categoría. Separarlos añadiría coordinación para una regla que puede mantenerse en una sola base.
+Se eligió **A** porque cubre la necesidad de auditar cambios de roles y de fichas sin añadir otro servicio. Turnos, pagos y autorización se mantienen juntos para que la elegibilidad se resuelva sobre datos propios. La inspección se mantiene separada porque su estado técnico no es el estado administrativo del turno. Ficha y clasificación permanecen juntas: los cambios de tipo, ejes y peso afectan directamente el cálculo de la categoría. Separarlos añadiría coordinación para una regla que puede mantenerse en una sola base.
 
 ## Catálogo y componentes internos
 
-Los identificadores son propuestos para que el equipo utilice los mismos en el catálogo, los contratos y los diagramas. Los componentes son lógicos; no representan clases ni endpoints definitivos.
+Los identificadores se comparten entre el catálogo, los contratos y los diagramas. Los componentes son lógicos; no representan clases ni endpoints definitivos.
 
 | ID y servicio | Responsabilidad y operaciones principales | Componentes propuestos y dependencias |
 |---|---|---|
@@ -59,7 +59,12 @@ Se emplean nombres descriptivos para identificar los diez requisitos de la refer
 
 ### Flujo crítico documentado en E1
 
-Turnos y Pagos es responsable de comprobar elegibilidad y emitir la autorización. Inspecciones es responsable de confirmar el inicio después de guardar su propio registro. La justificación de ambos servicios se apoya en el objetivo del PFC, el contrato de autorización y las evidencias de E1 (secciones 3, 10 y 14 de la referencia); estas operaciones no se presentan como otro requisito funcional numerado.
+| Necesidad del PFC | Servicio responsable | Justificación |
+|---|---|---|
+| Autorizar el inicio de una inspección | Turnos y Pagos | Comprueba que el turno exista, esté habilitado y tenga el pago confirmado antes de emitir y guardar la autorización. |
+| Registrar el inicio de una inspección autorizada | Inspecciones | Valida la autorización para el mismo turno y confirma el inicio solo después de guardar la inspección en su propia base. |
+
+Estas necesidades se sustentan en el objetivo del PFC, el contrato de autorización y las pruebas de integración de E1 (secciones 3, 10 y 14 de la referencia). Complementan la matriz de requisitos publicados sin añadir nuevos requisitos oficiales.
 
 ## Restricciones no funcionales que orientan el diseño
 
@@ -68,12 +73,12 @@ Turnos y Pagos es responsable de comprobar elegibilidad y emitir la autorizació
 | Rendimiento del inicio | El objetivo de E1 es un p95 local de hasta 100 ms con 1, 5 y 10 usuarios simultáneos. No se atribuye esa medición al nuevo recorrido con Gateway. |
 | Fallos o demora al autorizar | En E1, Inspecciones espera hasta 3 segundos por la dependencia. Si no puede confirmar una autorización válida, no registra un nuevo inicio. |
 | Integridad de turno y pago | Un turno inexistente, inhabilitado o con pago no confirmado no genera una autorización válida ni una inspección. |
-| Reintentos y concurrencia | Repetir la misma operación debe recuperar la autorización ya emitida; solicitudes simultáneas no deben duplicar la inspección. |
+| Reintentos y concurrencia | Repetir la misma operación con el mismo turno y la misma clave permite recuperar la autorización ya emitida; solicitudes simultáneas no deben duplicar la inspección. La recuperación cuando el cliente pierde la clave queda fuera del alcance del taller. |
 | Persistencia tras reinicios | Cada servicio conserva los registros confirmados con sus identificadores y estados en su base privada. La evidencia de E1 corresponde a los dos servicios del prototipo. |
 | Acceso entre servicios | La autorización de inicio rechaza solicitudes sin una credencial de servicio válida sin cambiar el estado de negocio. Esto es distinto del inicio de sesión del personal. |
 
-## Acuerdos pendientes
+## Integración y validación de dominio
 
-- Validar con el equipo la responsabilidad de Identidad y Acceso sobre la consulta de auditoría, los identificadores de servicio y la asignación de línea en Inspecciones.
-- Confirmar con el responsable del dominio el formato de placa, la definición del período, los catálogos, los rangos por tipo y las reglas normativas de clasificación. No trasladar automáticamente las reglas del código de origen al diseño.
-- Entregar los límites y [la propiedad de datos](02-propiedad-datos.md) a Kevin, Carlos y Eduardo para acordar contratos, diagramas y comportamiento ante fallos.
+El equipo confirmó los cuatro servicios y sus bases privadas, la asignación de línea en Inspecciones y la consulta unificada de auditoría en Identidad y Acceso. Cada servicio conserva los registros de las acciones que ejecuta y la consulta indica cuando alguna fuente no está disponible. La [propiedad de datos](02-propiedad-datos.md) detalla las referencias que intercambian los servicios.
+
+Quedan por validar con el responsable del dominio el formato de placa, la definición del período, los catálogos, los rangos por tipo y las reglas normativas de clasificación.
