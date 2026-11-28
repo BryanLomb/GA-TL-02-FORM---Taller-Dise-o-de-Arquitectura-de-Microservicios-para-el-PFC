@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net" compressed="false">
   <diagram id="C4-N3" name="C4 N3">
-    <mxGraphModel dx="1920" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1600" background="#ffffff" math="0" shadow="0">
+    <mxGraphModel dx="1920" dy="1625" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1625" background="#ffffff" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
@@ -277,18 +277,6 @@
         <mxCell id="ficdb" value="&lt;b&gt;rtv_ficha_vehicular&lt;/b&gt;&lt;br&gt;Base privada propuesta" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=14;shape=cylinder3;boundedLbl=1;backgroundOutline=1;size=12;spacingTop=8;strokeWidth=1.4;fillColor=#ffffff;strokeColor=#000000;" vertex="1" parent="1">
           <mxGeometry x="1370" y="1309" width="245" height="62" as="geometry"/>
         </mxCell>
-        <mxCell id="legend-title" value="Canales de la lámina" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=20;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="60" y="1408" width="1800" height="35" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-design" value="&lt;b&gt;G1&lt;/b&gt; · Gestión de turnos y pagos&lt;br&gt;&lt;b&gt;G2&lt;/b&gt; · Acceso y roles del personal&lt;br&gt;&lt;b&gt;G3&lt;/b&gt; · Operaciones de ficha&lt;br&gt;Los contratos y mecanismos de G1–G3 están por cerrar." style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=15;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="60" y="1450" width="510" height="111" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-data" value="&lt;b&gt;A&lt;/b&gt; · Categoría para tarifa. Consulta síncrona propuesta&lt;br&gt;&lt;b&gt;B&lt;/b&gt; · Categoría para línea. Consulta síncrona propuesta&lt;br&gt;&lt;b&gt;C&lt;/b&gt; · Ficha usada en la última revisión. Canal pendiente&lt;br&gt;&lt;b&gt;D&lt;/b&gt; · Consulta de auditoría de ficha. Canal pendiente" style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=15;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="586" y="1450" width="623" height="111" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-permissions" value="&lt;b&gt;E&lt;/b&gt; · Consulta directa de permisos. Alternativa por decidir&lt;br&gt;La línea punteada indica una relación de diseño en revisión.&lt;br&gt;Los nombres de canal se consolidarán con los COM-XX de Kevin." style="whiteSpace=wrap;html=1;fontFamily=Helvetica;fontColor=#000000;fontSize=15;text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacing=0;connectable=0;" vertex="1" parent="1">
-          <mxGeometry x="1234" y="1450" width="626" height="111" as="geometry"/>
-        </mxCell>
         <mxCell id="ins-store" value="SQL/JDBC · E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;jumpStyle=none;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="irepo" target="insdb">
           <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
             <mxPoint x="0" y="-12" as="offset"/>
@@ -309,7 +297,7 @@
             <mxPoint x="0" y="-12" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="gw-ins" value="POST /inspecciones · REST síncrono propuesto" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=0.29;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="iapi">
+        <mxCell id="gw-ins" value="COM-01 · COM-14" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=0.29;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="iapi">
           <mxGeometry x="0" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="900.36" y="247"/>
@@ -318,7 +306,7 @@
             <mxPoint x="0" y="-11" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="authorization" value="Autorización · REST síncrono de E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iclient" target="tapi">
+        <mxCell id="authorization" value="COM-02 · Autorización E1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=2.2;jumpStyle=none;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.65;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iclient" target="tapi">
           <mxGeometry x="-0.21" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1050" y="548"/>
@@ -327,34 +315,34 @@
             <mxPoint x="0" y="-12" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="g1" value="G1" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0.75;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.96;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="tapi">
+        <mxCell id="g1" value="COM-12 · COM-13" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0.75;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.96;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="tapi">
           <mxGeometry x="-0.2" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1031" y="247"/>
               <mxPoint x="1489.6" y="247"/>
             </Array>
-            <mxPoint x="0" y="-9" as="offset"/>
+            <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="g2" value="G2" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.62;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.34;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="dapi">
-          <mxGeometry x="0.23" y="0" width="0" height="0" relative="1" as="geometry">
+        <mxCell id="g2" value="COM-03 · COM-04 · COM-10" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.62;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.34;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="dapi">
+          <mxGeometry x="-0.44" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="67" y="180.54"/>
               <mxPoint x="67" y="937.68"/>
             </Array>
-            <mxPoint x="0" y="-9" as="offset"/>
+            <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="g3" value="G3" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.62;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.48;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="fapi">
+        <mxCell id="g3" value="COM-06" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.62;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.48;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="gateway" target="fapi">
           <mxGeometry x="0.13" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1853" y="180.54"/>
               <mxPoint x="1853" y="944.96"/>
             </Array>
-            <mxPoint x="0" y="-9" as="offset"/>
+            <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="a" value="A" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.17;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tmanage" target="fapi">
+        <mxCell id="a" value="COM-07" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.17;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tmanage" target="fapi">
           <mxGeometry x="0.4" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1824" y="457.9"/>
@@ -363,7 +351,7 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="b" value="B" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.13;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iline" target="fapi">
+        <mxCell id="b" value="COM-08" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.55;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.13;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iline" target="fapi">
           <mxGeometry x="0.5" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="871" y="457.9"/>
@@ -374,7 +362,7 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c" value="C" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.37;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.38;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="fmanage" target="iapi">
+        <mxCell id="c" value="COM-09" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.37;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.38;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="fmanage" target="iapi">
           <mxGeometry x="0.52" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="800" y="1033.46"/>
@@ -383,7 +371,7 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="d" value="D" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.65;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="daudit" target="fapi">
+        <mxCell id="d" value="COM-11" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=1;exitY=0.65;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="daudit" target="fapi">
           <mxGeometry x="-0.43" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1120" y="1147.7"/>
@@ -392,7 +380,7 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e-i" value="E" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.58;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.44;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iapi" target="dapi">
+        <mxCell id="e-i" value="COM-05" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.58;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.44;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="iapi" target="dapi">
           <mxGeometry x="0.62" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="93" y="362.16"/>
@@ -402,7 +390,7 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e-t" value="E" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.28;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.77;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tapi" target="dapi">
+        <mxCell id="e-t" value="COM-05" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.28;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.77;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="tapi" target="dapi">
           <mxGeometry x="0.4" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1100" y="346.56"/>
@@ -412,14 +400,32 @@
             <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e-v" value="E" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.38;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="fapi" target="dapi">
+        <mxCell id="e-v" value="COM-05" style="noEdgeStyle=1;orthogonal=1;rounded=0;html=1;strokeColor=#000000;fontFamily=Helvetica;fontColor=#000000;fontSize=13;labelBackgroundColor=#ffffff;endArrow=block;endFill=1;startArrow=none;strokeWidth=1.15;dashed=1;dashPattern=5 4;jumpStyle=arc;jumpSize=7;exitX=0;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.38;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="fapi" target="dapi">
           <mxGeometry x="0.08" y="0" width="0" height="0" relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="998" y="935.6"/>
               <mxPoint x="998" y="939.76"/>
             </Array>
-            <mxPoint x="0" y="-9" as="offset"/>
+            <mxPoint x="0" y="-10" as="offset"/>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="legend-title" value="Contratos de comunicación" style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=20;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1405" width="500" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-protocol" value="COM-01 a COM-14 · REST/JSON síncrono. Clientes por HTTPS al Gateway. Línea punteada: relación propuesta para el taller." style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1437" width="1775" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-contracts-1" value="&lt;b&gt;COM-01&lt;/b&gt; · Iniciar inspección por el Gateway&lt;br&gt;&lt;b&gt;COM-02&lt;/b&gt; · Autorizar inicio · contrato interno de E1&lt;br&gt;&lt;b&gt;COM-03&lt;/b&gt; · Abrir sesión&lt;br&gt;&lt;b&gt;COM-04&lt;/b&gt; · Asignar roles&lt;br&gt;&lt;b&gt;COM-05&lt;/b&gt; · Verificar permisos en cada solicitud protegida" style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1470" width="565" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-contracts-2" value="&lt;b&gt;COM-06&lt;/b&gt; · Gestionar ficha vehicular&lt;br&gt;&lt;b&gt;COM-07&lt;/b&gt; · Consultar categoría para tarifa&lt;br&gt;&lt;b&gt;COM-08&lt;/b&gt; · Consultar categoría para asignar línea&lt;br&gt;&lt;b&gt;COM-09&lt;/b&gt; · Consultar la revisión anterior&lt;br&gt;&lt;b&gt;COM-10&lt;/b&gt; · Consultar auditoría unificada" style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="665" y="1470" width="575" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-contracts-3" value="&lt;b&gt;COM-11&lt;/b&gt; · Consultar auditoría de ficha&lt;br&gt;&lt;b&gt;COM-12&lt;/b&gt; · Gestionar turno&lt;br&gt;&lt;b&gt;COM-13&lt;/b&gt; · Confirmar pago&lt;br&gt;&lt;b&gt;COM-14&lt;/b&gt; · Asignar línea" style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="1470" width="580" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-status" value="COM-05 consulta a MS-03. Los tiempos por validar y las referencias de ficha o vehículo se detallan en la matriz." style="text;html=1;whiteSpace=wrap;overflow=visible;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacing=0;connectable=0;fontFamily=Helvetica;fontColor=#000000;fontSize=15;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1562" width="1775" height="25" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>
