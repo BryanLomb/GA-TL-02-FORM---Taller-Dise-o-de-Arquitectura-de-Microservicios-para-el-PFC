@@ -34,7 +34,7 @@
 
 El Proyecto Fin de Curso elegido por el equipo es el Sistema de Revisión Técnica Vehicular (RTV) del Centro de Revisión Técnica Vehicular del Municipio de Valencia. Este documento reúne la tabla de servicios del diseño y la tabla de retroalimentación de la revisión docente.
 
-La Tabla~\ref{tab:servicios} procede de los archivos \path{01-dominio-servicios.md} y \path{02-propiedad-datos.md} de la carpeta \path{docs/arquitectura/} del repositorio. Los cuatro servicios son una propuesta del equipo y todavía no tienen la aprobación de los cuatro integrantes. Los endpoints y eventos que aún no están definidos se completarán desde \path{04-comunicaciones-contratos.md}, en esa misma carpeta.
+La Tabla~\ref{tab:servicios} procede de los archivos \path{01-dominio-servicios.md} y \path{02-propiedad-datos.md} de la carpeta \path{docs/arquitectura/} del repositorio. Los cuatro servicios son una propuesta del equipo y todavía no tienen la aprobación de los cuatro integrantes. Los endpoints proceden de la matriz de comunicaciones \path{04-comunicaciones-contratos.md}, en esa misma carpeta, donde cada canal tiene un identificador COM-XX. Solo COM-01 y COM-02 proceden del contrato de E1; las demás rutas son propuestas del taller. Los diagramas C4 de contenedores y componentes están en \path{docs/diagramas/} y los bosquejos a mano en \path{evidencias/ga-tl-02/}.
 
 \section{Tabla de servicios}
 
@@ -56,25 +56,34 @@ La Tabla~\ref{tab:servicios} procede de los archivos \path{01-dominio-servicios.
 \textbf{MS-01} Turnos y Pagos &
 Gestionar el estado administrativo del trámite: turnos, confirmación de pago y autorización de inicio para turnos elegibles. &
 Turnos, habilitación, pago, autorizaciones y claves de idempotencia. Base privada \texttt{rtv\_turnos\_pagos}. &
-\texttt{POST /turnos/\{turnoId\}/\allowbreak autorizaciones-\allowbreak inspeccion} (contrato E1 v0.2). Resto por definir. &
+COM-02 \texttt{POST /turnos/\{turnoId\}/\allowbreak autorizaciones-\allowbreak inspeccion} (E1 v0.2).\newline
+COM-12 \texttt{POST /turnos}, \texttt{GET /turnos/\{turnoId\}}.\newline
+COM-13 \texttt{POST /turnos/\{turnoId\}/\allowbreak confirmaciones-\allowbreak pago}. &
 Sin RF numerado en RF-01 a RF-10. Pendiente de acordar.\\
 \addlinespace
 \textbf{MS-02} Inspecciones &
 Controlar el inicio y el estado de la inspección: solicitar la autorización y registrar el inicio. &
 Inspección, estado, registro de inicio y claves de idempotencia. Base privada \texttt{rtv\_inspecciones}. &
-\texttt{POST /inspecciones} (contrato E1 v0.2). Resto por definir. &
+COM-01 \texttt{POST /inspecciones} (E1 v0.2).\newline
+COM-14 \texttt{POST /inspecciones/\allowbreak\{inspeccionId\}/\allowbreak asignaciones-\allowbreak linea}.\newline
+COM-09 \texttt{GET /vehiculos/\allowbreak\{vehiculoId\}/\allowbreak ultima-revision}. &
 Sin RF numerado en RF-01 a RF-10. Pendiente de acordar.\\
 \addlinespace
 \textbf{MS-03} Identidad y Acceso &
 Autenticar al personal, gestionar sesiones, roles y permisos, y ofrecer la consulta unificada de auditoría administrativa. &
 Cuentas, credenciales protegidas, sesiones, roles, permisos, asignaciones y auditoría de sus propias operaciones. Base privada \texttt{rtv\_identidad\_acceso} (propuesta). &
-Por definir. &
+COM-03 \texttt{POST /sesiones}.\newline
+COM-04 \texttt{PUT /usuarios/\allowbreak\{usuarioId\}/roles}.\newline
+COM-05 \texttt{POST /autorizaciones/\allowbreak verificar}.\newline
+COM-10 \texttt{GET /auditoria}. &
 RF-01, RF-02, RF-03 y RF-04.\\
 \addlinespace
 \textbf{MS-04} Ficha y Clasificación Vehicular &
 Registrar y consultar la ficha del vehículo, validar sus datos, detectar el cambio de uso y calcular la categoría. &
 Fichas e historial, placa y período, tipo, uso, ejes, peso, catálogos, categoría con su fecha, indicación de impronta y auditoría de la ficha. Base privada \texttt{rtv\_ficha\_vehicular} (propuesta). &
-Por definir. &
+COM-06 \texttt{POST} y \texttt{PATCH /fichas}, \texttt{GET /fichas/\allowbreak\{fichaId\}}.\newline
+COM-07 y COM-08 \texttt{GET /fichas/\allowbreak\{fichaId\}/\allowbreak clasificacion}.\newline
+COM-11 \texttt{GET /auditoria}. &
 RF-05 a RF-10. Colabora en RF-04.\\
 \end{longtable}
 \endgroup
@@ -101,6 +110,6 @@ Pendiente de revisión docente & Pendiente & Pendiente\\
 
 \section{Declaración de uso de inteligencia artificial}
 
-Eduardo Reinoso utilizó Claude (Anthropic, modelo Sonnet 5.5) para estructurar este documento y ajustar la redacción. Los datos de la Tabla~\ref{tab:servicios} se contrastaron con los archivos 01 y 02 del repositorio antes de incluirlos.
+Eduardo Reinoso utilizó Claude (Anthropic, modelo Sonnet 5.5) para estructurar este documento, redactar el borrador de \path{05-consistencia-resiliencia.md} y ajustar la redacción. Los datos de la Tabla~\ref{tab:servicios} se contrastaron con los archivos 01, 02 y 04 del repositorio antes de incluirlos.
 
 \end{document}
