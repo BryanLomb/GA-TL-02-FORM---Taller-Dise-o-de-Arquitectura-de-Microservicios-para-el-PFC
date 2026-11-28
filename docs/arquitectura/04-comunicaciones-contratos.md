@@ -26,16 +26,16 @@ Todas las filas utilizan REST/JSON síncrono. En COM-01, el contrato de `POST /i
 | COM-04 | Web/móvil → Gateway → MS-03 | `PUT /usuarios/{usuarioId}/roles` | Conjunto completo de identificadores de roles; resultado de la asignación. | RF-02 y RF-03. MS-03 valida usuario, roles y permiso del administrador; confirma todo o rechaza sin cambios. |
 | COM-05 | Cada servicio que recibe una operación protegida → MS-03 | `POST /autorizaciones/verificar` | Sesión o token verificable, operación y recurso; devuelve actor y decisión de acceso vigente. | RF-02 y RF-03. Consultar en cada solicitud evita autorizar con roles revocados. El servicio destino aplica la decisión; validar la firma en el Gateway no sustituye este control. |
 | COM-06 | Web/móvil → Gateway → MS-04 Ficha y Clasificación Vehicular | `POST /fichas`; `PATCH /fichas/{fichaId}`; `GET /fichas/{fichaId}` | Placa, período, tipo, uso, ejes y peso. Salida: ficha, categoría, fecha de clasificación e indicador de impronta. | RF-05 a RF-10. MS-04 valida y recalcula; los clientes no suministran una categoría como dato oficial. |
-| COM-07 | MS-01 → MS-04 | `GET /fichas/{fichaId}/clasificacion` | Categoría vigente, fecha y referencia de versión de ficha. | RF-10; CO-02 de `05`. La tarifa conserva la clasificación aplicada como dato histórico. |
-| COM-08 | MS-02 → MS-04 | `GET /fichas/{fichaId}/clasificacion` | Categoría vigente y referencia de versión. | RF-06 y RF-10; CO-03. Sin clasificación válida no se asigna una línea. Este canal no se añade al inicio mínimo de E1. |
-| COM-09 | MS-04 → MS-02 | `GET /vehiculos/{vehiculoId}/ultima-revision` | Identificador de revisión y referencia de ficha o versión utilizada; ausencia explícita si no existe revisión previa. | RF-07; CO-04. MS-04 obtiene el uso histórico desde su propia ficha y lo compara con el actual para determinar la impronta. |
+| COM-07 | MS-01 → MS-04 | `GET /fichas/{fichaId}/clasificacion` | `fichaId`, `versionFichaId`, categoría vigente y fecha de clasificación. | RF-10; CO-02 de `05`. La tarifa conserva la clasificación aplicada como dato histórico. |
+| COM-08 | MS-02 → MS-04 | `GET /fichas/{fichaId}/clasificacion` | `fichaId`, `versionFichaId`, categoría vigente y fecha de clasificación. | RF-06 y RF-10; CO-03. Sin clasificación válida no se asigna una línea. Este canal no se añade al inicio mínimo de E1. |
+| COM-09 | MS-04 → MS-02 | `GET /vehiculos/{vehiculoId}/ultima-revision` | Entrada: `vehiculoId`. Salida: `inspeccionId`, `fichaId` y `versionFichaId` de la revisión anterior; ausencia explícita si no existe. | RF-07; CO-04. MS-04 obtiene el uso histórico desde su propia ficha y lo compara con el actual para determinar la impronta. |
 | COM-10 | Web/móvil → Gateway → MS-03 | `GET /auditoria?usuarioId=…&desde=…&hasta=…&accion=…` | Filtros, registros, indicador `completo` y fuentes no disponibles. | RF-04. Solo consulta quien tiene permiso; un resultado parcial debe reconocerse como tal. |
 | COM-11 | MS-03 → MS-04 | `GET /auditoria?usuarioId=…&desde=…&hasta=…&accion=…` | Registros de alta de placa y cambios de uso, con identificador de origen. | RF-04 y RF-07; CO-06. MS-03 combina estos registros con su auditoría local de roles. MS-04 conserva la propiedad de sus registros. |
 | COM-12 | Web/móvil → Gateway → MS-01 | `POST /turnos`; `GET /turnos/{turnoId}` | Crear: referencia de vehículo o ficha, período y datos del turno; devuelve `turnoId` y estado. Consultar: devuelve el turno y su estado administrativo. | Flujo administrativo de `01`; RNF-03 y RNF-05. MS-01 conserva el turno y su elegibilidad. |
 | COM-13 | Web/móvil → Gateway → MS-01 | `POST /turnos/{turnoId}/confirmaciones-pago` | Referencia del comprobante y confirmación del personal autorizado; devuelve identificador y estado del pago. | RNF-03, RNF-05 y RF-03. Registrar una confirmación no significa integrar una pasarela bancaria ni emitir automáticamente la autorización. |
 | COM-14 | Web/móvil → Gateway → MS-02 | `POST /inspecciones/{inspeccionId}/asignaciones-linea` | Línea solicitada y referencia de ficha; devuelve asignación y versión de clasificación utilizada. | RF-06 y RF-10. MS-02 comprueba compatibilidad con la categoría de COM-08 antes de confirmar. |
 
-El inicio y la autorización se trazan a los RNF de E1. Para COM-07 a COM-09 quedan por definir la relación del trámite con `fichaId` o `vehiculoId` y el formato de la versión de ficha.
+El inicio y la autorización se trazan a los RNF de E1. En COM-07, MS-01 obtiene `fichaId` del trámite y conserva `versionFichaId` con la categoría aplicada. En COM-08, MS-02 conserva `fichaId` y `versionFichaId` al asignar la línea. En COM-09, busca la revisión anterior por `vehiculoId`; MS-04 resuelve el uso histórico mediante la pareja `fichaId` y `versionFichaId`, conforme a [02-propiedad-datos.md](02-propiedad-datos.md). Una edición posterior no altera la versión histórica usada en la revisión.
 
 ### Elección del protocolo
 
@@ -54,8 +54,8 @@ El inicio y la autorización se trazan a los RNF de E1. Para COM-07 a COM-09 que
 | COM-04 | `200`: usuario y roles asignados. `400` para una asignación inválida; `404` si no existe la cuenta. Sin actualización parcial. |
 | COM-05 | `200`: actor, decisión `permitido` y operación verificada. Una decisión negativa hace que el servicio de negocio responda `403`; una sesión inválida produce `401`. La credencial del servicio llamante también debe ser válida. |
 | COM-06 | Alta `201`, edición y consulta `200`; incluyen identificador de ficha, datos validados y clasificación. `400` para campos inválidos, `404` si no existe y `409` por placa duplicada en el período. Si faltan datos para clasificar, la respuesta lo identifica y no ofrece una categoría vigente utilizable. |
-| COM-07 y COM-08 | `200`: categoría, fecha y versión. `404` si no existe la ficha; `409` si no tiene clasificación válida para la decisión solicitada. |
-| COM-09 | `200`: revisión y versión de ficha; si no hay revisión previa, `existeRevision: false`. El historial vacío se distingue de un fallo de consulta. |
+| COM-07 y COM-08 | `200`: `fichaId`, `versionFichaId`, categoría vigente y fecha de clasificación. `404` si no existe la ficha; `409` si no tiene clasificación válida para la decisión solicitada. |
+| COM-09 | `200`: `existeRevision: true`, `inspeccionId`, `fichaId` y `versionFichaId`; si no hay revisión previa, `existeRevision: false` sin referencias de revisión. Una revisión existente cuya versión no puede resolverse deja la impronta pendiente; no se interpreta como historial vacío. |
 | COM-10 y COM-11 | `200`: registros filtrados, origen y estado de completitud; `400` si los filtros o fechas son inválidos. No ofrecen edición ni borrado. |
 | COM-12 | Crear `201`; consultar `200`; `400` por datos inválidos y `404` por turno inexistente. El alta no supone pago confirmado. |
 | COM-13 | `201`: confirmación registrada; `404` por turno inexistente y `409` ante un estado incompatible o comprobante ya aplicado. La unicidad del comprobante debe controlarse localmente. |
@@ -83,7 +83,7 @@ Los tiempos de COM-05 y COM-07 a COM-11 y el margen del Gateway requieren valida
 
 No se proponen reintentos automáticos de escrituras en el Gateway. Ante una respuesta incierta de COM-01, el cliente conserva y reutiliza la misma clave; MS-02 propaga esa clave en COM-02. El registro local puede quedar temporalmente como autorización sin inspección y completarse mediante reintento. Esto no constituye una transacción entre bases.
 
-Si el cliente pierde la clave, E1 no recupera automáticamente una clave anterior por turno. Resolver ese caso exige una decisión de contrato y su ADR; no está cubierto por el reintento actual.
+Se conserva el contrato de E1: el reintento usa el mismo turno y la misma clave. Si se pierde la clave y se envía otra para un turno ya autorizado, MS-01 rechaza con `409 TURNO_YA_AUTORIZADO`; el taller no incorpora recuperación por turno. Este rechazo no cancela la autorización existente ni permite duplicar la inspección.
 
 ## 4. Etiquetas para C4
 
